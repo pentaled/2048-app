@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Board } from '../Board'
-// import { Header } from './Header'
+import { Header } from './Header'
+import { generateTiles } from '../Utils/TileGenerator'
 
 const Wrapper = styled.div`
     width: 500px;
@@ -9,20 +10,19 @@ const Wrapper = styled.div`
 `
 
 const Game = () => {
-    const data = [
-        {
-            id: 1,
-            x: 104,
-            y: 104,
-            value: 2,
-        }
-    ]
     const [tiles, setTiles] = useState([])
-    const [score, setScore] = useState(1000)
+    const [score, setScore] = useState(100)
+
+    const startGame = () => {
+        const data = generateTiles(4)
+        setTiles(data)
+        console.log('start game.....')
+    }
 
     return (
         <Wrapper>
-            <Board tiles={data}></Board>
+            <Header startGame={startGame} score={score} />
+            <Board tiles={tiles}></Board>
         </Wrapper>
 
     )

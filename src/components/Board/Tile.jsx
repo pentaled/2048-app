@@ -28,7 +28,7 @@ const Inner = styled.div`
 const Tile = ({ value, x, y }) => {
     return (
         <Wrapper style={{ transform: `translate(${x}px, ${y}px)` }}>
-            <Inner>
+            <Inner value={value}>
                 {value}
             </Inner>
         </Wrapper>
