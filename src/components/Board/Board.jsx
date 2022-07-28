@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 const Board = ({ tiles }) => {
     return (
         <Wrapper>
-            <Tiles tiles={[tiles]}/>
+            <Tiles tiles={tiles}/>
             <BoardGrid/>
         </Wrapper>
     )

@@ -1,27 +1,29 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
-const Wrapper = styled.div`
-    width: 116px;
-    height: 40px;
-    margin-left: auto;
-    margin-top: 20px;
-    border-radius: 3px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: bold;
-    font-size: 14px;
-    color: white;
-    background-color:rgb(141, 122, 105);
+const ActionButton = styled.button`
+  background-color: #8f7a66;
+  border: none;
+  border-radius: 3px;
+  padding: 12px 20px;
+  color: #f9f6f2;
+  cursor: pointer;
+  font-weight: bold;
 `
-/*
 
-    color: white*/
-
-const Button = () => {
+export const Button = ({ id, children, onClick }) => {
     return (
-        <Wrapper>New Game</Wrapper>
-    )
-}
+        <ActionButton
+            id={id}
+            onClick={onClick}
+        >
+            {children}
+        </ActionButton>
+    );
+};
 
-export default Button
+Button.propTypes = {
+    id: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired
+}

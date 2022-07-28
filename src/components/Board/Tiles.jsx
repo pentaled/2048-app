@@ -6,7 +6,7 @@ const List = ({ tiles }) => {
         <>
             {tiles.map((item) => {
                 return (
-                    <Tile key={item.id} value={item.value} x={item.x} y={item.y}/>
+                    <Tile key={item.id} value={item.value} x={item.coordinateX} y={item.coordinateY}/>
                 )
             })}
         </>

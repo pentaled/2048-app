@@ -1,44 +1,49 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const Wrapper = styled.div`
-    width: 116px;
-    height: 85px;
-    background: #CBC1B6;
-    margin-left: auto;
-    border-radius: 3px;
+    width: 100%;
     display: flex;
-    justify-content: center;
-`
-const Title = styled.div`
-    font-weight: 650;
-    font-size: 14px;
-    position: relative;
-    top: 10px;
-    left: 33px;
-    color: #f5f0eb;
-`
-const Number = styled.div`
-    font-weight: bold;
-    position: relative;
-    top: 35px;
-    right: 20px;
-    font-size: 26px;
-    height: 28px;
-    bottom: 20px;
-    color: white;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
 `
 
-const ScoreBoard = () => {
+const ScoreContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background: #bbada0;
+  padding: 10px 15px;
+  border-radius: 3px;
+  text-align: center;
+  min-width: 80px;
+`
+
+const ScoreLabel = styled.div`
+  font-size: 13px;
+  color: #eee4da;
+`
+
+const ScoreBody = styled.div`
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  padding: 8px 0;
+`
+
+export const ScoreBoard = ({ score }) => {
     return (
         <Wrapper>
-            <Title>
-                Score 
-            </Title>
-            <Number>
-                1000
-            </Number>
+            <ScoreContainer>
+                <ScoreLabel>Score</ScoreLabel>
+                <ScoreBody>{score}</ScoreBody>
+            </ScoreContainer>
         </Wrapper>
+
     )
 }
 
-export default ScoreBoard
+ScoreBoard.propTypes = {
+    score: PropTypes.number.isRequired
+}
