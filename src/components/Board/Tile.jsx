@@ -1,6 +1,35 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
+const colorSwitch = (value) => {
+    switch (value) {
+        case 2:
+            return "background: #eee4da;";
+        case 4:
+            return "background: #eee1c9;";
+        case 8:
+            return "color: #f9f6f2; background: #f3b27a;";
+        case 16:
+            return "color: #f9f6f2; background: #f69664;";
+        case 32:
+            return "color: #f9f6f2; background: #f77c5f;";
+        case 64:
+            return "color: #f9f6f2; background: #f75f3b;";
+        case 128:
+            return "color: #f9f6f2; background: #edd073;";
+        case 256:
+            return "color: #f9f6f2; background: #edcc62;";
+        case 512:
+            return "color: #f9f6f2; background: #edc950;";
+        case 1024:
+            return "color: #f9f6f2; background: #edc53f;";
+        case 2048:
+            return "color: #f9f6f2; background: #edc22e;";
+        default:
+            return "background: #eee4da;";
+    }
+}
+
 const Wrapper = styled.div`
     position: absolute;
     width: 106px;
@@ -22,7 +51,8 @@ const Inner = styled.div`
     font-weight: bold;
     z-index: 10;
     font-size: 45px;
-     animation-fill-mode: backwards;
+    animation-fill-mode: backwards;
+    ${({ value }) => colorSwitch(value)}
 `
 
 const Tile = ({ value, x, y }) => {
