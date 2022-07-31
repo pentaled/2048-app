@@ -42,7 +42,7 @@ const getPosition = (random) => {
     return { x, y }
 }
 
-const getCoordinate = (position) => {
+export const getCoordinate = (position) => {
     return (position * TILE_WIDTH) + (position * TILE_GUTTER)
 }
 

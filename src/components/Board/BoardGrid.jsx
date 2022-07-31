@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { INDICES } from '../Utils/constants'
+
 const Grid = styled.div`
     position: absolute;
     z-index: 2;
