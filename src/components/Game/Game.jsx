@@ -4,6 +4,7 @@ import { Board } from '../Board'
 import { Header } from './Header'
 import { generateTiles } from '../Utils/TileGenerator'
 import { MAP_MOVE_FUNCTION, getDirection } from '../Utils/TileControl'
+import { mergeTiles, areEqual } from '../Utils/TileMerger'
 
 const Wrapper = styled.div`
     width: 500px;
@@ -15,17 +16,15 @@ const Game = () => {
     const [score, setScore] = useState(100)
     useEffect(() => {
         const handleKeyPress = (e) => {
-            console.log('key pressed', e.key)
             const direction = getDirection(e.key)
             if (direction) {
                 const moveTiles = MAP_MOVE_FUNCTION[direction]
-                const newTiles = moveTiles(tiles)
-                setTiles(newTiles)
+                let newTiles = moveTiles(tiles)
+                if (!areEqual(tiles, newTiles)) {
+                    newTiles = mergeTiles(newTiles)
+                    setTiles(newTiles)
+                }
             }
-
-
-
-            console.log('direction', direction)
         }
 
         document.addEventListener('keydown', handleKeyPress)

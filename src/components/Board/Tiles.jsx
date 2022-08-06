@@ -14,9 +14,9 @@ const List = ({ tiles }) => {
 }
 
 const Tiles = ({ tiles }) => {
-    // action
+    const sortedTiles = tiles.sort((t1, t2) => t1.id - t2.id)
     return (
-        <List tiles={tiles} />
+        <List tiles={sortedTiles} />
     )
 }
 

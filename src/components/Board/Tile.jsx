@@ -1,5 +1,11 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import './animation.css'
+
+const typeSwitch = (type) => {
+
+}
+
 
 const colorSwitch = (value) => {
     switch (value) {
