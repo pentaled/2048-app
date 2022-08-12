@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import { generateTiles } from '../Utils/TileGenerator'
 import { getDirection, MAP_MOVE_FUNCTION } from '../Utils/TileControl'
+import { mergeTiles, areEqual } from '../Utils/TileMerger'
 
 const Wrapper = styled.div`
     width: 500px;
@@ -13,7 +14,7 @@ const Game = () => {
     const [tiles, setTiles] = useState([])
     const [score, setScore] = useState(1000)
     const startGame = () => {
-        const data = generateTiles(2)
+        const data = generateTiles(8)
         setTiles(data)
     }
 
@@ -23,8 +24,11 @@ const Game = () => {
             const direction = getDirection(e.key)
             if(direction) {
                 const moveTiles = MAP_MOVE_FUNCTION[direction]
-                const newTiles = moveTiles(tiles)
-                setTiles(newTiles)
+                let newTiles = moveTiles(tiles)
+                if (!areEqual(tiles, newTiles)) {
+                    newTiles = mergeTiles(newTiles)
+                    setTiles(newTiles)
+                }
             }
 
             console.log('direction', direction)

@@ -6,7 +6,7 @@ const List = ({ tiles }) => {
         <>
             {tiles.map((item) => {
                 return (
-                    <Tile key={item.id} value={item.value} x={item.coordinateX} y={item.coordinateY}/>
+                    <Tile key={item.id} value={item.value} type={item.value} x={item.coordinateX} y={item.coordinateY}/>
                 )
             })}
         </>
@@ -14,9 +14,9 @@ const List = ({ tiles }) => {
 }
 
 const Tiles = ({ tiles }) => {
-    // action
-    return  (
-        <List tiles={tiles}/>
+    const sortedTiles = tiles.sort((t1, t2) => t1.id - t2.id)
+    return (
+        <List tiles={sortedTiles}/>
     )
 }
 

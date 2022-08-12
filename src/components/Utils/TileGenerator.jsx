@@ -26,7 +26,8 @@ export const createRandomTile = (tiles) => {
         col: position.x,
         row: position.y, 
         coordinateX: getCoordinate(position.x),
-        coordinateY: getCoordinate(position.y)
+        coordinateY: getCoordinate(position.y),
+        type: "new"
     }
 }
 
@@ -46,7 +47,7 @@ export const getCoordinate = (position) => {
     return (position * TILE_WIDTH) + (position * TILE_GUTTER)
 }
 
-const getNextId = (tiles) => {
+export const getNextId = (tiles) => {
     return getMaxId(tiles) + 1
 }
 

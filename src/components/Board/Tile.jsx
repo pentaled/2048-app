@@ -1,5 +1,17 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
+import './animation.css'
+
+const typeSwitch = (type) => {
+    switch (type) {
+        case "merged": 
+            return "animation: grow 200ms ease 100ms;"
+        default:
+            return "animation: appear 300ms ease 100ms;"
+    }
+    //merged: "animation: grow 200ms ease 100ms;"
+    // new: "animation: appear 300ms ease 100ms;"
+}
 
 const colorSwitch = (value) => {
     switch (value) {
@@ -55,20 +67,9 @@ const Inner = styled.div`
     };
     animation-fill-mode: backwards;
     ${({ value }) => colorSwitch(value)}
+    ${({ type }) => typeSwitch(type)}
 `
-// by using {value} to change the colour codes HW using switch sat 30 jul
-//background: rgba(238, 228, 218, 0.35);
-// 2:"background: #eee4da;";
-// 4:"background: #eee1c9;";
-// 8:"color: #f9f6f2; background: #f3b27a;";
-// 16:"color: #f9f6f2; background: #f69664;";
-// 32:"color: #f9f6f2; background: #f77c5f;";
-// 64:"color: #f9f6f2; background: #f75f3b;";
-// 128:"color: #f9f6f2; background: #edd073;";
-// 256:"color: #f9f6f2; background: #edcc62;";
-// 512:"color: #f9f6f2; background: #edc950;";
-// 1024:"color: #f9f6f2; background: #edc53f;";
-// 2048:"color: #f9f6f2; background: #edc22e;";
+
 const Tile = ({ value, x, y }) => {
 
     return (
@@ -82,12 +83,14 @@ const Tile = ({ value, x, y }) => {
 
 Tile.defaultProps = {
     value: 2,
+    type: "new",
     x: 0,
     y: 0
 }
 
 Tile.propTypes = {
     value: PropTypes.number,
+    type: PropTypes.string,
     x: PropTypes.number,
     y: PropTypes.number,
 }
