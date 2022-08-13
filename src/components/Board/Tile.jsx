@@ -2,10 +2,13 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import './animation.css'
 
-const typeSwitch = (type) => {
-
+const typeSwitch = type => {
+    if (type === 'merged') {
+        return "animation: grow 200ms ease 100ms;"
+    } else {
+        return "animation: appear 300ms ease 100ms;"
+    }
 }
-
 
 const colorSwitch = (value) => {
     switch (value) {
@@ -59,12 +62,14 @@ const Inner = styled.div`
     font-size: 45px;
     animation-fill-mode: backwards;
     ${({ value }) => colorSwitch(value)}
+    ${({ type }) => typeSwitch(type)};
+
 `
 
-const Tile = ({ value, x, y }) => {
+const Tile = ({ type, value, x, y }) => {
     return (
         <Wrapper style={{ transform: `translate(${x}px, ${y}px)` }}>
-            <Inner value={value}>
+            <Inner value={value} type={type}>
                 {value}
             </Inner>
         </Wrapper>
@@ -72,12 +77,14 @@ const Tile = ({ value, x, y }) => {
 }
 
 Tile.propTypes = {
+    type: PropTypes.string,
     value: PropTypes.number,
     x: PropTypes.number,
     y: PropTypes.number,
 }
 
 Tile.defaultProps = {
+    type: 'new',
     value: 2,
     x: 0,
     y: 0,
