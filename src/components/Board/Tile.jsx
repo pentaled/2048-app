@@ -9,8 +9,6 @@ const typeSwitch = (type) => {
         default:
             return "animation: appear 300ms ease 100ms;"
     }
-    //merged: "animation: grow 200ms ease 100ms;"
-    // new: "animation: appear 300ms ease 100ms;"
 }
 
 const colorSwitch = (value) => {
@@ -70,11 +68,10 @@ const Inner = styled.div`
     ${({ type }) => typeSwitch(type)}
 `
 
-const Tile = ({ value, x, y }) => {
-
+const Tile = ({ value, type, x, y }) => {
     return (
         <Wrapper style={{ transform: `translate(${x}px, ${y}px)` }}>
-            <Inner value={value}>
+            <Inner value={value} type={type}>
                 {value}
             </Inner>
         </Wrapper>

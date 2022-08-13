@@ -15,6 +15,7 @@ export const areEqual = (a1, a2) => {
 export const mergeTiles = (tiles) => {
     let id = getNextId(tiles)
     let newTiles = {}
+    
     tiles.forEach(element => {
         const key = `${element.row}${element.col}`
         if(newTiles[key]) {
