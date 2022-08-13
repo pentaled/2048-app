@@ -16,11 +16,11 @@ export const getDirection = (key) => {
     }
 }
 
-const getRow = (tiles, row) => {
+export const getRow = (tiles, row) => {
     return tiles.filter((item) => item.row === row)
 }
 
-const getCol = (tiles, col) => {
+export const getCol = (tiles, col) => {
     return tiles.filter((item) => item.col === col)
 }
 

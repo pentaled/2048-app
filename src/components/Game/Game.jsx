@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Board } from '../Board'
 import { Header } from './Header'
-import { generateTiles } from '../Utils/TileGenerator'
+import { generateTiles, createRandomTile } from '../Utils/TileGenerator'
 import { MAP_MOVE_FUNCTION, getDirection } from '../Utils/TileControl'
 import { mergeTiles, areEqual } from '../Utils/TileMerger'
+import { getGameStatus } from '../Utils/GameStatus'
+import { Results } from './Results'
 
 const Wrapper = styled.div`
     width: 500px;
@@ -14,14 +16,20 @@ const Wrapper = styled.div`
 const Game = () => {
     const [tiles, setTiles] = useState([])
     const [score, setScore] = useState(100)
+    const [gameStatus, setGameStatus] = useState('NEW_GAME')
+
     useEffect(() => {
         const handleKeyPress = (e) => {
             const direction = getDirection(e.key)
-            if (direction) {
+            const currentGameStatus = getGameStatus(tiles)
+            setGameStatus(currentGameStatus)
+
+            if (direction && gameStatus == "IN_PROGRESS") {
                 const moveTiles = MAP_MOVE_FUNCTION[direction]
                 let newTiles = moveTiles(tiles)
                 if (!areEqual(tiles, newTiles)) {
                     newTiles = mergeTiles(newTiles)
+                    newTiles = [...newTiles, createRandomTile(newTiles)]
                     setTiles(newTiles)
                 }
             }
@@ -37,13 +45,16 @@ const Game = () => {
     const startGame = () => {
         const data = generateTiles(8)
         setTiles(data)
-        console.log('start game.....')
+        setGameStatus('IN_PROGRESS')
     }
 
     return (
         <Wrapper>
             <Header startGame={startGame} score={score} />
-            <Board tiles={tiles}></Board>
+            <Board tiles={tiles}>
+                {(gameStatus == "WIN" || gameStatus == "GAME_OVER")
+                    && <Results status={gameStatus} startGame={startGame} />}
+            </Board>
         </Wrapper>
 
     )
