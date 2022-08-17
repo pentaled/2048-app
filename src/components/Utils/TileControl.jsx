@@ -15,35 +15,35 @@ export const getDirection = (key) => {
     }
 }
 
-const getRow = (tiles, row) => {
+export const getRow = (tiles, row) => {
     return tiles.filter((item) => item.row === row)
 }
 
-const getCol = (tiles, col) => {
+export const getCol = (tiles, col) => {
     return tiles.filter((item) => item.col === col)
 }
 
 const moveUp = (tiles) => {
     return INDICES.map((i) => {
-        return shiftVertically(getCol(tiles, i), 'up')
+        return shiftUniversal(getCol(tiles, i), 'up')
     }).flat()
 }
 
 const moveDown = (tiles) => {
     return INDICES.map((i) => {
-        return shiftVertically(getCol(tiles, i), 'down')
+        return shiftUniversal(getCol(tiles, i), 'down')
     }).flat()
 }
 
 const moveLeft = (tiles) => {
     return INDICES.map((i) => {
-        return shiftHorizontally(getRow(tiles, i), 'left')
+        return shiftUniversal(getRow(tiles, i), 'left')
     }).flat()
 }
 
 const moveRight = (tiles) => {
     return INDICES.map((i) => {
-        return shiftHorizontally(getRow(tiles, i), 'right')
+        return shiftUniversal(getRow(tiles, i), 'right')
     }).flat()
 }
 
@@ -73,64 +73,62 @@ const setTileRow = (tile, row) => {
     return tile
 }
 
-const shiftHorizontally = (tiles, direction) => {
+//Homework for 13/8 merge the code into one function.
+const shiftUniversal = (tiles, direction) => {
     if (tiles.length === 0) {
         return []
     }
     let result = JSON.parse(JSON.stringify(tiles))
-    result.sort((item1, item2) => getTileColumn(item1) - getDirection(item2))
-    const startPosition = direction === 'left'? 0 : 4 - result.length
+    let i = result.length - 1;
 
-    for(let i = 0; i < result.length; i++) {
-        setTileColumn(result[i], startPosition + i)
-    }
-
-    if (direction === 'left') {
-        result.reverse()
-    }
-
-    let i = result.length - 1
-    while( i >= 1 ) {
-        if(result[i].value === result[i - 1].value) {
-            for(let j = 0; j <= i - 1; j++) {
-                const shift = direction === 'left' ? -1 : 1
-                setTileColumn(result[j], getTileColumn(result[j]) + shift)
-            }
-            i -= 2
-            continue
+    if (direction === 'left' || direction ==='right') {
+        result.sort((item1, item2) => getTileColumn(item1) - getTileColumn(item2))
+        const startPosition = direction === 'left' ? 0 : 4 - result.length
+        for (let i = 0; i < result.length; i++) {
+            setTileColumn(result[i], startPosition + i)
         }
-        i--
-    }
-    return result
-}
 
-const shiftVertically = (tiles, direction) => {
-    if (tiles.length === 0) {
-        return []
-    }
-    let result = JSON.parse(JSON.stringify(tiles))
-    result.sort((item1, item2) => getTileRow(item1) - getDirection(item2))
-    const startPosition = direction === 'up'? 0 : 4 - result.length
-
-    for(let i = 0; i < result.length; i++) {
-        setTileRow(result[i], startPosition + i)
-    }
-
-    if (direction === 'up') {
-        result.reverse()
-    }
-    
-    let i = result.length - 1
-    while( i >= 1 ) {
-        if(result[i].value === result[i - 1].value) {
-            for(let j = 0; j <= i - 1; j++) {
-                const shift = direction === 'up' ? -1 : 1
-                setTileRow(result[j], getTileRow(result[j]) + shift)
-            }
-            i -= 2
-            continue
+        if (direction === 'left') {
+            result.reverse()
         }
-        i--
+
+        while (i >= 1) {
+            if (result[i].value === result[i - 1].value) {
+                for (let j = 0; j <= i - 1; j++) {
+                    const shift = direction === 'left' ? -1 : 1
+                    setTileColumn(result[j], getTileColumn(result[j]) + shift);
+                }
+                i -= 2
+                continue;
+            }
+            i--
+        }
+        return result
     }
-    return result
-}
+
+    if (direction === 'up' || direction ==='down') {
+        result.sort((item1, item2) => getTileRow(item1) - getTileRow(item2))
+        const startPosition = direction === 'up' ? 0 : 4 - result.length
+        for (let i = 0; i < result.length; i++) {
+            setTileRow(result[i], startPosition + i)
+        }
+
+        if (direction === "up") {
+            result.reverse()
+        }
+
+        while (i >= 1) {
+            if (result[i].value === result[i - 1].value) {
+                for (let j = 0; j <= i - 1; j++) {
+                    const shift = direction === "up" ? -1 : 1;
+                    setTileRow(result[j], getTileRow(result[j]) + shift);
+                }
+                i -= 2;
+                continue;
+            }
+
+            i--;
+        }
+        return result
+    }
+} 

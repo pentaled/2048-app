@@ -19,7 +19,6 @@ export const createRandomTile = (tiles) => {
     }
     // value 2 and 4 random -- Mat
     const value = Math.round(Math.random()) > 0 ? 2 : 4;
-    console.log(value)
     return {
         id: getNextId(tiles),
         value: value,

@@ -16,16 +16,18 @@ const Wrapper = styled.div`
     touch-action: none;
 `
 
-const Board = ({ tiles }) => {
+const Board = ({ tiles, children }) => {
     return (
         <Wrapper>
             <Tiles tiles={tiles}/>
             <BoardGrid/>
+            {children}
         </Wrapper>
     )
 }
 
 Board.propTypes = {
+    children: PropTypes.node,
     tiles: PropTypes.array.isRequired
 }
 
