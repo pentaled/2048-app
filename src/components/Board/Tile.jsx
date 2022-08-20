@@ -59,7 +59,7 @@ const Inner = styled.div`
     text-align: center;
     font-weight: bold;
     z-index: 10;
-    font-size: 45px;
+    font-size: 38px;
     animation-fill-mode: backwards;
     ${({ value }) => colorSwitch(value)}
     ${({ type }) => typeSwitch(type)};
