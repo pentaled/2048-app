@@ -26,7 +26,7 @@ const BoardGrid = () => {
             <Row key={rowId}>
                 {INDICES.map((colId) => {
                     return (
-                        <Column key={colId}>{colId}</Column>
+                        <Column key={colId}/>
                     )
                 })}
             </Row>

@@ -14,27 +14,36 @@ const Wrapper = styled.div`
 `
 const Game = () => {
     const [tiles, setTiles] = useState([])
-    const [score, setScore] = useState(1000)
+    const [score, setScore] = useState(0)
     const [gameStatus, setGameStatus] = useState('NEW_GAME')
+    const [isPressed, setPressed] = useState(false)
     const startGame = () => {
-        const data = generateTiles(8)
+        const data = generateTiles(2)
         setGameStatus("IN_PROGRESS")
         setTiles(data)
+    }
+    
+    const updateScore = (points) => {
+        setScore(score + points)
     }
 
     useEffect( () => {
         const handleKeyPress = (e) => {
-            const direction = getDirection(e.key)
-            const currentGameStatus = getGameStatus(tiles)
-            setGameStatus(currentGameStatus)
-            if(direction && gameStatus === "IN_PROGRESS") {
-                const moveTiles = MAP_MOVE_FUNCTION[direction]
-                let newTiles = moveTiles(tiles)
-                if (!areEqual(tiles, newTiles)) {
-                    newTiles = mergeTiles(newTiles)
-                    newTiles = [...newTiles, createRandomTile(newTiles)]
-                    setTiles(newTiles)
+            if (!isPressed) {
+                setPressed(true)
+                const direction = getDirection(e.key)
+                const currentGameStatus = getGameStatus(tiles)
+                setGameStatus(currentGameStatus)
+                if(direction && gameStatus === "IN_PROGRESS") {
+                    const moveTiles = MAP_MOVE_FUNCTION[direction]
+                    let newTiles = moveTiles(tiles)
+                    if (!areEqual(tiles, newTiles)) {
+                        newTiles = mergeTiles(newTiles, updateScore)
+                        newTiles = [...newTiles, createRandomTile(newTiles)]
+                        setTiles(newTiles)
+                    }
                 }
+                setPressed(false)
             }
         }
         document.addEventListener('keydown', handleKeyPress)

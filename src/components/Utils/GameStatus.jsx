@@ -29,8 +29,22 @@ const getCoordinate = (title, direction) => {
     }
     return title.coordinateY
 }
+
+const tilesSamePosition = (tiles) => {
+    let newTiles = {}
+
+    tiles.forEach(element => {
+        const key = `${element.row}${element.col}`
+        if (newTiles[key]) {
+            return true
+        }
+        newTiles[key] = true
+    });
+    return false
+}
+
 const isGameOver = (tiles) => {
-    if(tiles.length < 16 ) {
+    if(tiles.length < 16 || tilesSamePosition(tiles)) {
         return false
     } 
 

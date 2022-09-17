@@ -12,7 +12,7 @@ export const areEqual = (a1, a2) => {
     return a1.every((x) => a2.some((y) => areTilesEqual(x, y)))
 }
 
-export const mergeTiles = (tiles) => {
+export const mergeTiles = (tiles, updateScore) => {
     let id = getNextId(tiles)
     let newTiles = {}
     
@@ -20,6 +20,7 @@ export const mergeTiles = (tiles) => {
         const key = `${element.row}${element.col}`
         if(newTiles[key]) {
             const newValue = element.value * 2
+            updateScore(newValue)
             newTiles[key] = { ...element, id: id++, value: newValue, type: "merged" }
         } else {
             newTiles[key] = element

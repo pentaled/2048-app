@@ -61,7 +61,7 @@ const Inner = styled.div`
     font-weight: bold;
     z-index: 10;
     font-size: ${ 
-        props => props.value > 1000 ? '35px' : '45px'
+        props => props.value > 1000 ? '38px' : '45px'
     };
     animation-fill-mode: backwards;
     ${({ value }) => colorSwitch(value)}
